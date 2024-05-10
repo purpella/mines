@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+        }
+        .photo-button-signal {
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: transparent;
+            border: none;
+            outline: none;
+            z-index: 2; /* Увеличить z-index */
+        }
+        .photo-button-signal img {
+            max-width: 100%;
+            height: auto;
+        }
+        .photo-button-game {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .photo-button-game img {
+            max-width: 100%;
+            height: auto;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        #result {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            color: white;
+            display: none; /* Изначально скрыто */
+        }
+
+        #main {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #countdown {
+            position: absolute;
+            top: 73%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            color: white;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <button class="photo-button-signal" id="photo-button-signal">
+            <img src="/mines/mines_signal.png">
+        </button>
+        <a href="https://1weawx.com/casino/play/1play_1play_luckyjet" target="_blank" class="photo-button-game">
+            <img src="/mines/mines_game.png">
+        </a>
+        <img src="/mines/mines_bg.png">
+        <div id="result"></div>
+        <div id="main">
+            <img id="mainImage" src="/mines/mines_main.png">
+        </div>
+        <div id="countdown"></div>
+    </div>
+
+    <script>
+        const resultElement = document.getElementById('result');
+        const countdownElement = document.getElementById('countdown');
+        const luckyButton = document.querySelector('.photo-button-signal');
+        let lastClickTime = 0;
+        let countdownInterval;
+
+        const imagePaths = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+                            '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
+                            '21', '22', '23', '24', '25', '26', '27', '28', '29', '30',
+                            '31', '32', '33', '34', '35', '36', '37', '38', '39', '40'
+        ];
+
+        function getRandomImagePath() {
+            const randomIndex = Math.floor(Math.random() * imagePaths.length);
+            return imagePaths[randomIndex];
+        }
+
+        luckyButton.addEventListener('click', () => {
+            const currentTime = new Date().getTime();
+
+            if (currentTime - lastClickTime >= 60000) {
+                // Hide main image
+                document.getElementById('mainImage').style.display = 'none';
+
+                // Display loading animation
+                const loadingAnimation = document.createElement('img');
+                loadingAnimation.src = '/mines/loading-load.gif';
+                loadingAnimation.style.position = 'absolute';
+                loadingAnimation.style.top = '50%';
+                loadingAnimation.style.left = '50%';
+                loadingAnimation.style.transform = 'translate(-50%, -50%)';
+                loadingAnimation.style.zIndex = '3'; /* Выше всех */
+                document.getElementById('container').appendChild(loadingAnimation);
+
+                // Display result image after a delay
+                setTimeout(() => {
+                    // Remove loading animation
+                    loadingAnimation.remove();
+
+                    // Display result image
+                    resultElement.innerHTML = '<img src="/mines/predictions/' + getRandomImagePath() + '.jpg">';
+                    resultElement.style.display = 'block';
+
+                    // Start countdown
+                    let count = 60;
+                    countdownElement.textContent = count + ' seconds';
+                    countdownInterval = setInterval(() => {
+                        count--;
+                        if (count >= 0) {
+                            countdownElement.textContent = count + ' seconds';
+                        } else {
+                            clearInterval(countdownInterval);
+                            countdownElement.textContent = '';
+                        }
+                    }, 1000);
+                }, 2000); // Симулируем задержку загрузки
+            }
+
+            lastClickTime = currentTime;
+        });
+    </script>
+
+</body>
+</html>
