@@ -83,12 +83,12 @@
             <img src="mines_signal.png">
         </button>
         <a href="https://1weawx.com/casino/play/1play_1play_mines" target="_blank" class="photo-button-game">
-            <img src="mines/mines_game.png">
+            <img src="mines_game.png">
         </a>
-        <img src="mines/mines_bg.png">
+        <img src="mines_bg.png">
         <div id="result"></div>
         <div id="main">
-            <img id="mainImage" src="mines/mines_main.png">
+            <img id="mainImage" src="mines_main.png">
         </div>
         <div id="countdown"></div>
     </div>
@@ -120,7 +120,7 @@
 
                 // Display loading animation
                 const loadingAnimation = document.createElement('img');
-                loadingAnimation.src = '/mines/loading-load.gif';
+                loadingAnimation.src = 'loading-load.gif';
                 loadingAnimation.style.position = 'absolute';
                 loadingAnimation.style.top = '50%';
                 loadingAnimation.style.left = '50%';
@@ -134,7 +134,7 @@
                     loadingAnimation.remove();
 
                     // Display result image
-                    resultElement.innerHTML = '<img src="mines/predictions/' + getRandomImagePath() + '.jpg">';
+                    resultElement.innerHTML = '<img src="/predictions/' + getRandomImagePath() + '.jpg">';
                     resultElement.style.display = 'block';
 
                     // Start countdown
